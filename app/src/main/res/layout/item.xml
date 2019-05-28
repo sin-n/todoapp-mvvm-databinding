@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="viewModel" type="n.sin.todoapp.itemlist.TodoItemViewModel"/>
+        <variable
+                name="eventListener"
+                type="n.sin.todoapp.itemlist.TodoItemEventListener"/>
+    </data>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:checked="@={!viewModel.active}"
+                android:onCheckedChanged="@{viewModel::onCheckedChanged}"
+                android:id="@+id/checkBox"/>
+        <TextView
+                android:id="@+id/textView"
+                android:text="@{viewModel.text}"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:minHeight="60dp"
+                android:clickable="true"
+                android:onClick="@{() -> eventListener.onClickItem(viewModel.item)}"
+                android:padding="16px"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="viewModel" type="n.sin.todoapp.itemlist.TodoListViewModel"/>
+    </data>
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <RadioGroup
+                android:id="@+id/radioGroup"
+                android:checkedButton="@={viewModel.itemFilter}"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <RadioButton
+                    android:id="@+id/allRadio"
+                    android:text="ALL"
+                    android:checked="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            <RadioButton
+                    android:id="@+id/activeRadio"
+                    android:text="ACTIVE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            <RadioButton
+                    android:id="@+id/compRadio"
+                    android:text="COMPLETED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </RadioGroup>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_below="@id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/editText">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <EditText
+                android:id="@+id/editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="@={viewModel.inputText}"
+                android:maxLines="3"
+                android:layout_toLeftOf="@id/addButton"
+                android:layout_alignParentStart="true"/>
+        <Button
+                android:id="@+id/addButton"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:text="ADD"
+                android:enabled="@{viewModel.enabled}"
+                android:onClick="@{viewModel::onClickAddButton}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+</layout>
