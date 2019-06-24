@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import n.sin.todoapp.R
 import n.sin.todoapp.data.StorageCallback
-import n.sin.todoapp.data.StorageService
+import n.sin.todoapp.data.StorageRepository
 import n.sin.todoapp.data.TodoItem
 
-class TodoListViewModel(private val storage: StorageService): ViewModel(), StorageCallback.ItemsReadCallback {
+class TodoListViewModel(private val storage: StorageRepository): ViewModel(), StorageCallback.ItemsReadCallback {
 
     private val _items = MutableLiveData<List<TodoItem>>()
     val items: LiveData<List<TodoItem>>
@@ -58,7 +58,7 @@ class TodoListViewModel(private val storage: StorageService): ViewModel(), Stora
         }
     }
 
-    class Factory(private val storage: StorageService): ViewModelProvider.NewInstanceFactory() {
+    class Factory(private val storage: StorageRepository): ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return TodoListViewModel(storage) as T
         }

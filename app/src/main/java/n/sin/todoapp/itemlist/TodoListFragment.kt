@@ -10,11 +10,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import n.sin.todoapp.MainActivity
 import n.sin.todoapp.R
-import n.sin.todoapp.data.StorageService
+import n.sin.todoapp.data.StorageRepository
 import n.sin.todoapp.data.TodoItem
 import n.sin.todoapp.databinding.ItemListBinding
+import androidx.recyclerview.widget.DividerItemDecoration
+
+
 
 
 class TodoListFragment: Fragment(), TodoItemEventListener {
@@ -45,7 +49,7 @@ class TodoListFragment: Fragment(), TodoItemEventListener {
                 container,
                 false)
 
-        val storage = StorageService.getInstance(context!!)
+        val storage = StorageRepository.getInstance(context!!)
         val factory = TodoListViewModel.Factory(storage)
 
         _viewModel = ViewModelProviders.of(this, factory).get(TodoListViewModel::class.java)
@@ -55,7 +59,18 @@ class TodoListFragment: Fragment(), TodoItemEventListener {
         _binding.recyclerView.adapter = _adapter
         _binding.lifecycleOwner = this
 
+        // 区切り線の追加
+        addDivider(_binding.recyclerView)
+
         return _binding.root
+    }
+
+    private fun addDivider(recyclerView: RecyclerView) {
+        val dividerItemDecoration = DividerItemDecoration(
+            recyclerView.context,
+            DividerItemDecoration.VERTICAL
+        )
+        recyclerView.addItemDecoration(dividerItemDecoration)
     }
 
     private fun setObserve(viewModel: TodoListViewModel) {

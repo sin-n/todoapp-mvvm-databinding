@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import n.sin.todoapp.data.StorageService
+import n.sin.todoapp.data.StorageRepository
 import n.sin.todoapp.data.TodoItem
 import n.sin.todoapp.databinding.ItemBinding
 
@@ -28,7 +28,7 @@ class TodoListAdapter(eventListener: TodoItemEventListener, private val fragment
     }
 
     private fun createItemViewModel(item: TodoItem): TodoItemViewModel {
-        val storage = StorageService.getInstance(fragment.context!!)
+        val storage = StorageRepository.getInstance(fragment.context!!)
         val viewModel = TodoItemViewModel(storage, item) // 要検討
         return viewModel
     }

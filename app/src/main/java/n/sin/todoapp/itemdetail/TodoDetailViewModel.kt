@@ -8,10 +8,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import n.sin.todoapp.Event
 import n.sin.todoapp.data.StorageCallback
-import n.sin.todoapp.data.StorageService
+import n.sin.todoapp.data.StorageRepository
 import n.sin.todoapp.data.TodoItem
 
-class TodoDetailViewModel(private val storage: StorageService, private val id: Int): ViewModel(), StorageCallback.ItemReadCallback {
+class TodoDetailViewModel(private val storage: StorageRepository, private val id: Int): ViewModel(), StorageCallback.ItemReadCallback {
 
     var active: Boolean = false
 
@@ -55,7 +55,7 @@ class TodoDetailViewModel(private val storage: StorageService, private val id: I
         Log.d("Detail", msg)
     }
 
-    class Factory(private val storage: StorageService, private val itemId: Int): ViewModelProvider.NewInstanceFactory() {
+    class Factory(private val storage: StorageRepository, private val itemId: Int): ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return TodoDetailViewModel(storage, itemId) as T
         }

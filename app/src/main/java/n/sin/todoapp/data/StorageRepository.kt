@@ -5,7 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import java.util.concurrent.Executors
 
-class StorageService(private val context: Context) {
+class StorageRepository(private val context: Context) {
 
     private val _bgThreadHandler = Executors.newSingleThreadExecutor()
     private val _mainThreadHandler = Handler(Looper.getMainLooper())
@@ -60,11 +60,11 @@ class StorageService(private val context: Context) {
 
     companion object {
 
-        private var instance: StorageService? = null
+        private var instance: StorageRepository? = null
 
         @JvmStatic fun getInstance(context: Context) = instance ?: synchronized(this) {
             instance
-                ?: StorageService(context).also { instance = it }
+                ?: StorageRepository(context).also { instance = it }
         }
 
         @JvmStatic fun destroyInstance() {

@@ -5,10 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import n.sin.todoapp.data.StorageService
+import n.sin.todoapp.data.StorageRepository
 import n.sin.todoapp.data.TodoItem
 
-class TodoItemViewModel(private val storage: StorageService, item: TodoItem) : ViewModel() {
+class TodoItemViewModel(private val storage: StorageRepository, item: TodoItem) : ViewModel() {
 
     private val _item = item
     val item: TodoItem = _item
@@ -24,7 +24,7 @@ class TodoItemViewModel(private val storage: StorageService, item: TodoItem) : V
         storage.update(item)
     }
 
-    class Factory(private val storage: StorageService, private val item: TodoItem): ViewModelProvider.NewInstanceFactory() {
+    class Factory(private val storage: StorageRepository, private val item: TodoItem): ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return TodoItemViewModel(storage, item) as T
         }

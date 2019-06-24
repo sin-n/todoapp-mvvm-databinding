@@ -5,29 +5,29 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = arrayOf(TodoItem::class), version = 1)
+@Database(entities = [TodoItem::class], version = 1)
 abstract class TodoDataBase : RoomDatabase() {
     abstract fun itemDao(): TodoItemDao
 
     companion object {
-        private var _instance: TodoDataBase? = null
+        private var instance: TodoDataBase? = null
 
         @JvmStatic
         fun getInstance(context: Context): TodoDataBase {
             synchronized(this) {
-                if (_instance == null) {
-                    _instance = Room.databaseBuilder(
+                if (instance == null) {
+                    instance = Room.databaseBuilder(
                         context.applicationContext,
                         TodoDataBase::class.java, "items.db")
                         .build()
                 }
-                return _instance!!
+                return instance!!
             }
         }
 
         @JvmStatic
         fun destroyInstance() {
-            _instance = null
+            instance = null
         }
 
     }

@@ -6,6 +6,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- デフォルトのActionBarの非表示 -->
+        <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="ToolbarColor" parent="AppTheme">
+        <item name="android:textColorSecondary">@color/toolbarText</item>
+    </style>
 </resources>

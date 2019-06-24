@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import n.sin.todoapp.MainActivity
 import n.sin.todoapp.R
-import n.sin.todoapp.data.StorageService
+import n.sin.todoapp.data.StorageRepository
 import n.sin.todoapp.databinding.ItemDetailBinding
 
 class TodoDetailFragment: Fragment() {
@@ -26,6 +27,14 @@ class TodoDetailFragment: Fragment() {
             false)
         _binding.lifecycleOwner = this
 
+        // Back Button
+        val act = activity as AppCompatActivity
+        act.setSupportActionBar(_binding.toolbar)
+        val actionBar = act.supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setHomeButtonEnabled(true)
+        _binding.toolbar.setNavigationOnClickListener { act.onBackPressed() }
+
         return _binding.root
     }
 
@@ -33,7 +42,7 @@ class TodoDetailFragment: Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         val id = arguments!!.getInt(FRAGMENT_ID_KEY)
-        val storage = StorageService.getInstance(context!!)
+        val storage = StorageRepository.getInstance(context!!)
         val factory = TodoDetailViewModel.Factory(storage, id)
         _viewModel = ViewModelProviders.of(this, factory).get(TodoDetailViewModel::class.java)
         _binding.viewModel = _viewModel
