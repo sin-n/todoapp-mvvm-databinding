@@ -8,10 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import n.sin.todoapp.MainActivity
 import n.sin.todoapp.R
-import n.sin.todoapp.data.StorageRepository
 import n.sin.todoapp.databinding.ItemDetailBinding
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
@@ -30,12 +28,12 @@ class TodoDetailFragment: Fragment() {
         _binding.lifecycleOwner = this
 
         // Back Button
-        val act = activity as AppCompatActivity
-        act.setSupportActionBar(_binding.toolbar)
-        val actionBar = act.supportActionBar
+        val appCompatAct = activity as AppCompatActivity
+        appCompatAct.setSupportActionBar(_binding.toolbar)
+        val actionBar = appCompatAct.supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setHomeButtonEnabled(true)
-        _binding.toolbar.setNavigationOnClickListener { act.onBackPressed() }
+        _binding.toolbar.setNavigationOnClickListener { (activity as MainActivity).back() }
 
         return _binding.root
     }
