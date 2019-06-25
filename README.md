@@ -8,10 +8,12 @@
 - DataBinding
 - LiveData
 - Room
+- Koin
+    - DI
 
 ## 画面構成
 
-- TODO一覧画面W
+- TODO一覧画面
 - TODO詳細（編集）画面
 
 ## Usage
