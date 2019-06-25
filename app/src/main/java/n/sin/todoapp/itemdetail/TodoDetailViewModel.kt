@@ -54,10 +54,4 @@ class TodoDetailViewModel(private val storage: StorageRepository, private val id
     private fun log(msg: String) {
         Log.d("Detail", msg)
     }
-
-    class Factory(private val storage: StorageRepository, private val itemId: Int): ViewModelProvider.NewInstanceFactory() {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return TodoDetailViewModel(storage, itemId) as T
-        }
-    }
 }

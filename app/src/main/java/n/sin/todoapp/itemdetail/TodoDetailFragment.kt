@@ -13,6 +13,8 @@ import n.sin.todoapp.MainActivity
 import n.sin.todoapp.R
 import n.sin.todoapp.data.StorageRepository
 import n.sin.todoapp.databinding.ItemDetailBinding
+import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.core.parameter.parametersOf
 
 class TodoDetailFragment: Fragment() {
 
@@ -41,10 +43,8 @@ class TodoDetailFragment: Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val id = arguments!!.getInt(FRAGMENT_ID_KEY)
-        val storage = StorageRepository.getInstance(context!!)
-        val factory = TodoDetailViewModel.Factory(storage, id)
-        _viewModel = ViewModelProviders.of(this, factory).get(TodoDetailViewModel::class.java)
+        _viewModel = getViewModel{ parametersOf(arguments!!.getInt(FRAGMENT_ID_KEY)) } // DI by Koin
+
         _binding.viewModel = _viewModel
 
         setObserve(_viewModel)

@@ -58,19 +58,6 @@ class StorageRepository(private val context: Context) {
         }
     }
 
-    companion object {
-
-        private var instance: StorageRepository? = null
-
-        @JvmStatic fun getInstance(context: Context) = instance ?: synchronized(this) {
-            instance
-                ?: StorageRepository(context).also { instance = it }
-        }
-
-        @JvmStatic fun destroyInstance() {
-            instance = null
-        }
-    }
 }
 
 interface StorageCallback {
