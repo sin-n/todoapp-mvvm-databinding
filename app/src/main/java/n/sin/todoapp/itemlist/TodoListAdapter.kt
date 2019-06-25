@@ -10,7 +10,7 @@ import n.sin.todoapp.data.StorageRepository
 import n.sin.todoapp.data.TodoItem
 import n.sin.todoapp.databinding.ItemBinding
 
-class TodoListAdapter(eventListener: TodoItemEventListener, private val fragment: Fragment): RecyclerView.Adapter<TodoListAdapter.ItemViewHolder>() {
+class TodoListAdapter(eventListener: TodoItemEventListener, private val storage: StorageRepository): RecyclerView.Adapter<TodoListAdapter.ItemViewHolder>() {
 
     private var _todoList: List<TodoItem> = emptyList()
 
@@ -28,7 +28,6 @@ class TodoListAdapter(eventListener: TodoItemEventListener, private val fragment
     }
 
     private fun createItemViewModel(item: TodoItem): TodoItemViewModel {
-        val storage = StorageRepository.getInstance(fragment.context!!)
         val viewModel = TodoItemViewModel(storage, item) // 要検討
         return viewModel
     }

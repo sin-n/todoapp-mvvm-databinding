@@ -17,8 +17,8 @@ import n.sin.todoapp.data.StorageRepository
 import n.sin.todoapp.data.TodoItem
 import n.sin.todoapp.databinding.ItemListBinding
 import androidx.recyclerview.widget.DividerItemDecoration
-
-
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 
 class TodoListFragment: Fragment(), TodoItemEventListener {
@@ -30,6 +30,7 @@ class TodoListFragment: Fragment(), TodoItemEventListener {
     private lateinit var _viewModel: TodoListViewModel
     private lateinit var _binding: ItemListBinding
     private lateinit var _adapter: TodoListAdapter
+    private val _storage by inject<StorageRepository>()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -49,12 +50,10 @@ class TodoListFragment: Fragment(), TodoItemEventListener {
                 container,
                 false)
 
-        val storage = StorageRepository.getInstance(context!!)
-        val factory = TodoListViewModel.Factory(storage)
+        _viewModel = getViewModel() // DI by Koin
 
-        _viewModel = ViewModelProviders.of(this, factory).get(TodoListViewModel::class.java)
         _binding.viewModel = _viewModel
-        _adapter = TodoListAdapter(this, this)
+        _adapter = TodoListAdapter(this, _storage)
         _binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
         _binding.recyclerView.adapter = _adapter
         _binding.lifecycleOwner = this

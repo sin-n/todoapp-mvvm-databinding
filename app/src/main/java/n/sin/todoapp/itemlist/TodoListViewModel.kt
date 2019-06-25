@@ -58,10 +58,4 @@ class TodoListViewModel(private val storage: StorageRepository): ViewModel(), St
         }
     }
 
-    class Factory(private val storage: StorageRepository): ViewModelProvider.NewInstanceFactory() {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return TodoListViewModel(storage) as T
-        }
-    }
-
 }
